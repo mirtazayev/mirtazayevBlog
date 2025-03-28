@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import secrets
 
@@ -14,6 +15,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.middleware.sessions import SessionMiddleware
 
+from bot import bot, dp
 from configs import templates
 from database.engine import get_db
 from database.migration import run_migrations
@@ -41,6 +43,11 @@ app.include_router(auth_router.router)
 app.include_router(blog_router.router)
 
 
+async def run_telegram_bot():
+    await bot.delete_webhook(drop_pending_updates=True)
+    await dp.start_polling(bot)
+
+
 @app.on_event("startup")
 async def startup():
     try:
@@ -48,6 +55,7 @@ async def startup():
         run_migrations()
         redis_client = redis.Redis(host="localhost", port=6379, db=0)
         FastAPICache.init(RedisBackend(redis_client), prefix="fastapi-cache")
+        asyncio.create_task(run_telegram_bot(bot))
     except Exception as e:
         logger.error(f"Startup error: {e}")
         raise HTTPException(status_code=500, detail=f"Startup failed: {str(e)}")
@@ -75,6 +83,23 @@ async def root(request: Request, db: AsyncSession = Depends(get_db)):
     except SQLAlchemyError as e:
         logger.error(f"SQLAlchemy Error: {e}")
         raise HTTPException(status_code=500, detail="Database error occurred.") from e
+
+
+@app.exception_handler(404)
+async def not_found_handler(request: Request, exc: HTTPException):
+    return templates.TemplateResponse("/main/404.html", {"request": request}, status_code=404)
+
+
+@app.get("/meta.json")
+async def get_metadata():
+    return {
+        "name": "Mirtazayev's Blog",
+        "description": "Technical blog and portfolio",
+        "version": "1.0.1",
+        "repository": "https://github.com/mirtazayev/mirtazayevBlog",
+        "author": "Asadbek Mirtazayev",
+        "license": "MIT",
+    }
 
 
 if __name__ == "__main__":

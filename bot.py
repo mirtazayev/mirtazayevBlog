@@ -5,7 +5,7 @@ from aiogram.filters import Command
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
-from database.engine import SessionLocal
+from database.engine import AsyncSessionLocal
 from services.user_service import create_user
 
 BOT_TOKEN = "Your Bot TOKEN"
@@ -30,7 +30,7 @@ def website_btn() -> InlineKeyboardMarkup:
 
 @dp.message(Command(commands=["start"]))
 async def start_command(message: Message):
-    db = SessionLocal()
+    db = AsyncSessionLocal()
     try:
         create_user(message.from_user.id, db)
         response_text = f"Your ID: `{message.from_user.id}`\n\nCopy and enter this ID on the website to log in."
