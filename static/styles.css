@@ -1,0 +1,313 @@
+/* styles.css */
+:root {
+    /* Color Variables */
+    --primary: #4a90e2;
+    --success: #6bcb77;
+    --warning: #ffd93d;
+    --danger: #ff6b6b;
+    --telegram: #0088cc;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --text-secondary: #6c757d;
+
+    /* Transition */
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #ffffff;  /* Changed to pure white */
+    color: var(--dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.title {
+    color: var(--dark);
+    font-size: 2.5rem;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform var(--transition-speed),
+                box-shadow var(--transition-speed);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Button Variants */
+.create-btn { background: var(--success); color: white; }
+.edit-btn { background: var(--primary); color: white; }
+.delete-btn { background: var(--danger); color: white; }
+.update-btn { background: var(--warning); color: var(--dark); }
+.back-btn { background: var(--light); color: var(--dark); }
+.cancel-btn { background: var(--light); color: var(--dark); }
+.telegram-btn { background: var(--telegram); color: white; }
+
+/* Todo Grid & Cards */
+.todo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.todo-card {
+    background: #ffffff;  /* Explicit white background */
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    transition: transform var(--transition-speed),
+                box-shadow var(--transition-speed);
+    border: 1px solid #eee;  /* Added subtle border */
+}
+
+.todo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.done { background: var(--success); color: white; }
+.pending { background: var(--warning); color: var(--dark); }
+.not-started { background: var(--danger); color: white; }
+
+.todo-title {
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.todo-desc {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.todo-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Form Styles */
+.todo-form,
+.auth-form {
+    background: #ffffff;  /* Explicit white background */
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;  /* Added subtle border */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all var(--transition-speed);
+    background: #fff;  /* White input background */
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+/* Auth Specific Styles */
+.auth-wrapper {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.auth-instructions {
+    background: var(--light);  /* Using light variable instead of dark */
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.steps-list {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.steps-list li {
+    margin-bottom: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Confirmation Box */
+.confirmation-box {
+    background: #ffffff;  /* Explicit white background */
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid #eee;  /* Added subtle border */
+}
+
+.confirmation-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.fade-in { animation: fadeIn 0.5s ease-out; }
+.slide-up { animation: slideUp 0.4s ease-out; }
+.pulse-hover:hover { animation: pulse 1s infinite; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .todo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .auth-wrapper {
+        padding: 1rem;
+    }
+
+    .auth-form {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 1.75rem;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+/* Error Page Styles */
+.error-box {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 1px solid #ffcccc;
+}
+
+.error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #ff6b6b;
+}
+
+.error-box h3 {
+    color: #ff6b6b;
+    margin-bottom: 1.5rem;
+}
+
+.instructions-box {
+    background: #fff5f5;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: left;
+}
+
+.error-box .steps-list {
+    margin: 1rem 0;
+}
+
+.error-box .steps-list li {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+}
+
+.error-box code {
+    background: #ffecec;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+}

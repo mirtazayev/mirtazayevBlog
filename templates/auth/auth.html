@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Register - Todo App</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            const telegramIdInput = document.getElementById("telegram_id");
+            const telegramId = telegramIdInput.value.trim();
+            const submitBtn = document.getElementById("submit-btn");
+
+            if (!telegramId || isNaN(telegramId)) {
+                alert("Please enter a valid Telegram ID.");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Processing...";
+            document.getElementById("auth-form").submit();
+        }
+
+        function fetchTelegramId() {
+            alert("After clicking OK, check Telegram. The bot will send your ID automatically.");
+            window.open("https://t.me/MirtazayevBot", "_blank");
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="auth-wrapper">
+        <header class="header">
+            <h1 class="title">Get Started</h1>
+            <p class="subtitle">Secure access to your Todo List</p>
+        </header>
+
+        <form id="auth-form" class="auth-form slide-up" action="/auth/verify" method="post"
+              onsubmit="validateForm(event)">
+            <div class="auth-instructions">
+                <h3>Simple Authentication</h3>
+                <ol class="steps-list">
+                    <li>Click the button below to message our bot</li>
+                    <li>The bot will automatically send your Telegram ID</li>
+                    <li>Enter the ID below to continue</li>
+                </ol>
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn telegram-btn" onclick="fetchTelegramId()">
+                    <span class="icon">✈️</span> Get Telegram ID
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label for="telegram_id">Your ID</label>
+                <input type="number"
+                       id="telegram_id"
+                       name="telegram_id"
+                       class="form-control"
+                       required>
+            </div>
+            <button type="submit" id="submit-btn" class="btn create-btn pulse-hover">Continue</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

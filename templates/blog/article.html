@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }}</title>
+    <meta name="description" content="{{ article.content|striptags|truncate(160) }}">
+
+    <!-- Open Graph & Twitter Meta Tags -->
+    <meta property="og:title" content="{{ article.title }} | Mirtazayev Blog">
+    <meta property="og:description" content="{{ article.content|striptags|truncate(150) }}">
+    <meta property="og:url" content="https://mirtazayev.com/blog/{{ article.slug }}">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="/static/img.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2d3436;
+            --accent: #4a90e2;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --radius: 12px;
+            --max-width: 800px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            line-height: 1.8;
+            color: var(--primary);
+            background-color: var(--background);
+            padding: 2rem 1rem;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transform: scale(0.98);
+            animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes scaleUp {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
+        }
+
+        .article-header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .article-title {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), #4a5568);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        .article-content {
+            font-size: 1.1rem;
+            color: #495057;
+            overflow-wrap: break-word;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+
+        .article-content img:hover {
+            transform: scale(1.02);
+        }
+
+        .article-content pre {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            border: 1px solid #e9ecef;
+            position: relative;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e9ecef;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-button:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--accent);
+            padding: 1rem 2rem;
+            margin: 1.5rem 0;
+            background: #f8f9fa;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .social-share {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+
+        .social-link {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .telegram {
+            background: #0088cc;
+            color: white;
+        }
+
+        .twitter {
+            background: #1da1f2;
+            color: white;
+        }
+
+        .linkedin {
+            background: #0a66c2;
+            color: white;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 999;
+            transition: width 0.2s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+                margin-top: 3rem;
+            }
+
+            .article-title {
+                font-size: 1.8rem;
+            }
+
+            .meta-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.6rem;
+            }
+
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .social-share {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="progress-bar"></div>
+
+<a href="/" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+    <span>Home</span>
+</a>
+
+<div class="container">
+    <article>
+        <header class="article-header">
+            <h1 class="article-title">{{ article.title }}</h1>
+            <div class="meta-info">
+                <span>·</span>
+                <span>Published {{ article.created_at.strftime("%b %d, %Y") }}</span>
+                <span>·</span>
+            </div>
+        </header>
+
+        <div class="article-content">
+            {{ content | safe }}
+        </div>
+    </article>
+
+    <div class="social-share">
+        <a href="#" class="social-link twitter">
+            <i class="fab fa-twitter"></i>
+            <span>Share on Twitter</span>
+        </a>
+        <a href="#" class="social-link linkedin">
+            <i class="fab fa-linkedin"></i>
+            <span>Share on LinkedIn</span>
+        </a>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>
+        Enjoyed this article? Join our
+        <a href="https://t.me/mirtazayevs_blog" target="_blank" class="telegram social-link">
+            <i class="fab fa-telegram"></i>
+            Telegram Channel
+        </a>
+        for more updates!
+    </p>
+    <p class="mt-2 text-sm text-gray-500">
+        © {{ current_year }} Mirtazayev Blog. All rights reserved.
+    </p>
+</footer>
+
+<script>
+    // Reading progress bar
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.querySelector('.progress-bar').style.width = scrolled + '%';
+    });
+
+    // Copy code blocks
+    document.querySelectorAll('pre').forEach((pre) => {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+
+        button.addEventListener('click', () => {
+            const code = pre.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => button.textContent = 'Copy', 2000);
+            });
+        });
+
+        pre.appendChild(button);
+    });
+
+    // Lazy load images
+    document.querySelectorAll('img').forEach(img => {
+        img.loading = 'lazy';
+    });
+</script>
+</body>
+</html>

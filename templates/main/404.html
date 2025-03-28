@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <link rel="icon" href="/static/img.png" type="image/x-icon">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --gradient: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        .error-number {
+            font-size: 8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            line-height: 1;
+            filter: drop-shadow(0 4px 6px rgba(99, 102, 241, 0.2));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .message {
+            font-size: 1.5rem;
+            color: #475569;
+            margin: 1.5rem 0;
+            line-height: 1.6;
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: left 0.6s;
+        }
+
+        .home-btn:hover::before {
+            left: 100%;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .background {
+            position: absolute;
+            width: 200vmax;
+            height: 200vmax;
+            background: var(--gradient);
+            opacity: 0.05;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .error-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: shake 2s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .error-number {
+                font-size: 5rem;
+            }
+
+            .message {
+                font-size: 1.2rem;
+            }
+        }
+
+        .additional-text {
+            color: #94a3b8;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="error-emoji">😕</div>
+        <h1 class="error-number">404</h1>
+        <p class="message">Whoops! The page you're looking for vanished into the digital void.</p>
+        <a href="/" class="home-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Return Home
+        </a>
+        <p class="additional-text">Meanwhile, enjoy this peaceful empty space...</p>
+    </div>
+
+    <!-- Animated background elements -->
+    <svg style="display: none;">
+        <symbol id="wandering-line">
+            <path d="M0 0" style="fill: none; stroke: currentColor; stroke-width: 2; stroke-dasharray: 5"/>
+        </symbol>
+    </svg>
+</body>
+</html>

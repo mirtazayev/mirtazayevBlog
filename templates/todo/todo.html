@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        // Function to handle the delete request
+        async function deleteTodo(todoId) {
+            try {
+                const response = await fetch(`/todo/delete/${todoId}`, {  // Fixed path
+                    method: "DELETE",
+                });
+
+                if (response.ok) {
+                    document.getElementById(`todo-${todoId}`).remove();
+                } else {
+                    const errorData = await response.json();
+                    alert("Error: " + errorData.detail);
+                }
+            } catch (error) {
+                console.error("Request failed:", error);
+                alert("Something went wrong. Please try again.");
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1 class="title">Todo List</h1>
+        <a href="/todo/create" class="btn create-btn">+ New Todo</a>  <!-- Fixed the create link -->
+    </header>
+
+    <div class="todo-grid">
+        {% for todo in todos %}
+        <div class="todo-card fade-in" id="todo-{{ todo.id }}">
+            <div class="status-badge {% if todo.status == 'Done' %}done{% elif todo.status == 'Pending' %}pending{% else %}not-started{% endif %}">
+                {{ todo.status }}
+            </div>
+            <h3 class="todo-title">{{ todo.title }}</h3>
+            <h5>{% if todo.due_date %} Due: {{todo.due_date.strftime('%B %d, %Y')}} {%endif%}</h5>
+            <p class="todo-desc"><br>{{ todo.description }}</p>
+            <div class="todo-actions">
+                <a href="/todo/update/{{ todo.id }}" class="btn edit-btn">Edit</a> <!-- Fixed the update link -->
+                <button class="btn delete-btn" onclick="deleteTodo({{ todo.id }})">Delete</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
