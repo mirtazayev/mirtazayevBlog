@@ -8,29 +8,39 @@
     <link rel="stylesheet" href="/static/styles.css">
     <script>
         async function submitTodo(event) {
-            event.preventDefault();  // Prevent page reload
+            event.preventDefault();
 
             const form = document.querySelector('.todo-form');
+            const submitButton = form.querySelector('.create-btn');
+
+            submitButton.textContent = "Creating...";
+            submitButton.disabled = true;
+
             const formData = new FormData(form);
 
             try {
                 const response = await fetch("/todo/create", {
                     method: "POST",
-                    body: formData  // Send form data
+                    body: formData
                 });
 
                 if (response.ok) {
-                    window.location.href = "/";  // Redirect to home or list page
+                    window.location.href = "/todo";
                 } else {
                     const errorData = await response.json();
                     alert("Error: " + (errorData.detail || "Failed to create todo."));
+                    submitButton.textContent = "Create Todo"; // Revert button text
+                    submitButton.disabled = false;
                 }
             } catch (error) {
                 console.error("Request failed:", error);
                 alert("Something went wrong. Please try again.");
+                submitButton.textContent = "Create Todo"; // Revert button text
+                submitButton.disabled = false;
             }
         }
     </script>
+
 </head>
 <body>
 <div class="container">

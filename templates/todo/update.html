@@ -7,35 +7,50 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1 class="title">Update Todo</h1>
-            <a href="/todo" class="btn back-btn">← Back</a>  <!-- Back to home -->
-        </header>
+<div class="container">
+    <header class="header">
+        <h1 class="title">Update Todo</h1>
+        <a href="/todo" class="btn back-btn">← Back</a>  <!-- Back to home -->
+    </header>
 
-        <form class="todo-form slide-up" method="post" action="/todo/update/{{ todo.id }}">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title" class="form-control" value="{{ todo.title }}" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" class="form-control" rows="4">{{ todo.description }}</textarea>
-            </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select id="status" name="status" class="form-control">
-                    <option value="Done" {% if todo.status == 'Done' %}selected{% endif %}>Done</option>
-                    <option value="Pending" {% if todo.status == 'Pending' %}selected{% endif %}>Pending</option>
-                    <option value="Not Started" {% if todo.status == 'Not Started' %}selected{% endif %}>Not Started</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="due_date">Due Date</label>
-                <input type="date" id="due_date" name="due_date" class="form-control" value="{{ todo.due_date }}">
-            </div>
-            <button type="submit" class="btn update-btn">Update Todo</button>
-        </form>
-    </div>
+    <form class="todo-form slide-up" method="post" action="/todo/update/{{ todo.id }}">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" class="form-control" value="{{ todo.title }}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" class="form-control"
+                      rows="4">{{ todo.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status" class="form-control">
+                <option value="Done" {% if todo.status == 'Done' %}selected{% endif %}>Done</option>
+                <option value="Pending" {% if todo.status == 'Pending' %}selected{% endif %}>Pending</option>
+                <option value="Not Started" {% if todo.status == 'Not Started' %}selected{% endif %}>Not Started
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="due_date">Due Date</label>
+            <input type="date" id="due_date" name="due_date" class="form-control" value="{{ todo.due_date }}">
+        </div>
+        <button type="submit" class="btn update-btn">Update Todo</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector(".todo-form");
+        const submitButton = form.querySelector(".update-btn");
+
+        form.addEventListener("submit", function () {
+            submitButton.textContent = "Updating...";
+            submitButton.disabled = true;
+        });
+    });
+</script>
+
 </body>
 </html>
