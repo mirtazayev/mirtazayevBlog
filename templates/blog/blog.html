@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Articles</title>
+    <title>Mirtazayev Blog | Articles </title>
+    <meta property="og:title" content="Mirtazayev Blog | Articles">
+    <meta property="og:description" content="Explore of Mirtazayev's Blog">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -52,34 +54,34 @@
     </h1>
 
     {% if articles %}
-    <div class="space-y-8">
-        {% for article in articles %}
-        <div class="article-card opacity-0 animate-fade-in"
-             style="animation-delay: {{ loop.index0 * 0.2 }}s;">
-            <div class="flex justify-between items-start mb-4">
-                <h2 class="text-2xl font-bold text-gray-800 pr-4">{{ article.title }}</h2>
-                <span class="text-sm text-gray-500 whitespace-nowrap">{{ article.date }}</span>
-            </div>
-            <div class="prose max-w-none text-gray-600 mb-4">
-                {{ article.content[:200] | safe }}...
-            </div>
-            <div class="flex items-center justify-between">
-                <a href="/blog/{{ article.slug }}"
-                   class="group inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
-                    <span class="mr-2">Continue Reading</span>
-                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div>
+        <div class="space-y-8">
+            {% for article in articles %}
+                <div class="article-card opacity-0 animate-fade-in"
+                     style="animation-delay: {{ loop.index0 * 0.2 }}s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <h2 class="text-2xl font-bold text-gray-800 pr-4">{{ article.title }}</h2>
+                        <span class="text-sm text-gray-500 whitespace-nowrap">{{ article.date }}</span>
+                    </div>
+                    <div class="prose max-w-none text-gray-600 mb-4">
+                        {{ article.content[:200] | safe }}...
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <a href="/blog/{{ article.slug }}"
+                           class="group inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+                            <span class="mr-2">Continue Reading</span>
+                            <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
     {% else %}
-    <div class="text-center py-20">
-        <div class="text-6xl mb-4 text-gray-300">
-            <i class="fas fa-file-alt"></i>
+        <div class="text-center py-20">
+            <div class="text-6xl mb-4 text-gray-300">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <p class="text-xl text-gray-500">No articles published yet</p>
         </div>
-        <p class="text-xl text-gray-500">No articles published yet</p>
-    </div>
     {% endif %}
 </div>
 </body>
