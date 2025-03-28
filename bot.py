@@ -8,7 +8,7 @@ from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from database.engine import AsyncSessionLocal
 from services.user_service import create_user
 
-BOT_TOKEN = "Your Bot TOKEN"
+BOT_TOKEN = "1788680340:AAExSyS1HJrV0jVJt50084bv1IFKxJdbEpU"
 storage = MemoryStorage()
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(storage=storage)
