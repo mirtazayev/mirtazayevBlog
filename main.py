@@ -1,7 +1,6 @@
 import asyncio
 import logging
 import secrets
-
 from fastapi import FastAPI, HTTPException, status, Depends, Request
 from fastapi.security import HTTPBasic
 from markdown import markdown
