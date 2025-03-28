@@ -29,6 +29,6 @@ async def authenticate_user(request: Request,
         session_token = generate_session_token()
         request.session['user_id'] = stored_user.id
 
-        return RedirectResponse(url="/", status_code=303)
+        return RedirectResponse(url="/todo", status_code=303)
 
     return templates.TemplateResponse("/auth/auth_error.html", {"request": request})
