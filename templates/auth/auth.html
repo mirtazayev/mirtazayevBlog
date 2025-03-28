@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Register - Todo App</title>
+    <title>Login/Register</title>
     <link rel="stylesheet" href="/static/styles.css">
     <script>
         function validateForm(event) {
@@ -33,7 +33,7 @@
     <div class="auth-wrapper">
         <header class="header">
             <h1 class="title">Get Started</h1>
-            <p class="subtitle">Secure access to your Todo List</p>
+            <p class="subtitle">Secure access to your account</p>
         </header>
 
         <form id="auth-form" class="auth-form slide-up" action="/auth/verify" method="post"
@@ -41,9 +41,11 @@
             <div class="auth-instructions">
                 <h3>Simple Authentication</h3>
                 <ol class="steps-list">
-                    <li>Click the button below to message our bot</li>
-                    <li>The bot will automatically send your Telegram ID</li>
-                    <li>Enter the ID below to continue</li>
+                    <li>To get started, click the button below to message our bot.</li>
+                    <li>The bot will automatically retrieve your ID and send it to you.</li>
+                    <li>Once you receive your ID, please enter it in the field below to continue with the authentication
+                        process.
+                    </li>
                 </ol>
             </div>
 

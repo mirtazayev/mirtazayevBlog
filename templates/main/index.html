@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asadbek Mirtazayev | Tech Innovator</title>
+    <title>Asadbek Mirtazayev | Blog </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -496,9 +496,9 @@
                 </a>
             </div>
             <p class="summary">
-                Full-stack developer specializing in AI-powered solutions and high-performance web applications.
-                Passionate about creating efficient systems that solve real-world problems through innovative
-                combinations of FastAPI, Python, and modern web technologies.
+                Full-stack developer with expertise in cutting-edge web apps and AI-powered solutions. enthusiastic
+                about using Python, FastAPI, and contemporary web technologies for building successful platforms that
+                address real-world issues.
             </p>
         </div>
         <img src="/static/main/logo.png"
@@ -510,8 +510,8 @@
 <section class="hero">
     <h1>Transforming Ideas into Digital Reality</h1>
     <p class="hero-subtext">
-        Explore technical insights, development tutorials, and cutting-edge solutions in AI
-        and software engineering. Join me in navigating the evolving tech landscape.
+        Join me as I explore technical insights, development tips, and innovative solutions in AI and software
+        engineering. Let’s dive into the ever-evolving tech world together!
     </p>
     <div class="cta-buttons">
         <a href="/static/main/resume/asadbek.pdf" download="Asadbek_Mirtazayev_CV.pdf" class="btn btn-primary">
@@ -529,23 +529,23 @@
     <h2 class="section-title">Recent Articles</h2>
     <div class="posts-grid">
         {% for article, content in articles_and_content %}
-        <article class="post-card">
-            <div class="post-content">
-                <div class="post-date">
-                    {{ article.created_at.strftime("%d %B, %Y") }}
+            <article class="post-card">
+                <div class="post-content">
+                    <div class="post-date">
+                        {{ article.created_at.strftime("%d %B, %Y") }}
+                    </div>
+                    <h3 class="post-title">{{ article.title }}</h3>
+                    <p>{{ content|striptags|truncate(160) | safe }}</p>
+                    <a href="/blog/{{ article.slug }}" class="read-more">
+                        Read More
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <h3 class="post-title">{{ article.title }}</h3>
-                <p>{{ content|striptags|truncate(160) | safe }}</p>
-                <a href="/blog/{{ article.slug }}" class="read-more">
-                    Read More
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </article>
+            </article>
         {% else %}
-        <div class="no-articles">
-            <p>No recent articles found.</p>
-        </div>
+            <div class="no-articles">
+                <p>No recent articles found.</p>
+            </div>
         {% endfor %}
     </div>
 </section>
@@ -558,9 +558,6 @@
         </a>
         <a href="https://www.linkedin.com/in/mirtazayev/" aria-label="LinkedIn" target="_blank" rel="noopener">
             <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://twitter.com/" aria-label="Twitter" target="_blank" rel="noopener">
-            <i class="fab fa-twitter"></i>
         </a>
         <a href="mailto:mirtazayev.2004@gmail.com" aria-label="Email">
             <i class="far fa-envelope"></i>
