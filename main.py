@@ -17,7 +17,7 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from bot import bot, dp
 from configs import templates
-from database.engine import get_db
+from database.engine import get_db, init_db
 from database.migration import run_migrations
 from models.blog_model import Blog
 from routers import todo_router, user_router, auth_router, blog_router
@@ -51,21 +51,20 @@ async def run_telegram_bot():
 @app.on_event("startup")
 async def startup():
     try:
-        get_db()
+        init_db()
         run_migrations()
         redis_client = redis.Redis(host="localhost", port=6379, db=0)
         FastAPICache.init(RedisBackend(redis_client), prefix="fastapi-cache")
-        asyncio.create_task(run_telegram_bot(bot))
+        asyncio.create_task(run_telegram_bot())
     except Exception as e:
         logger.error(f"Startup error: {e}")
         raise HTTPException(status_code=500, detail=f"Startup failed: {str(e)}")
 
 
 @app.get("/", tags=["index"])
-@FastAPICache(expire=65)
 async def root(request: Request, db: AsyncSession = Depends(get_db)):
     try:
-        articles = await db.execute(select(Blog).order_by(Blog.created_at.desc()).limit(3))
+        articles = db.execute(select(Blog).order_by(Blog.created_at.desc()).limit(3))
         articles = articles.scalars().all()
 
         html_content = [markdown(article.content, extensions=["fenced_code", "tables", "codehilite"]) for article in
