@@ -64,7 +64,7 @@ async def startup():
 @app.get("/", tags=["index"])
 async def root(request: Request, db: AsyncSession = Depends(get_db)):
     try:
-        articles = db.execute(select(Blog).order_by(Blog.created_at.desc()).limit(3))
+        articles = await db.execute(select(Blog).order_by(Blog.created_at.desc()).limit(3))
         articles = articles.scalars().all()
 
         html_content = [markdown(article.content, extensions=["fenced_code", "tables", "codehilite"]) for article in
